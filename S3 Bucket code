@@ -97,7 +97,7 @@ Conditions:
     !Equals [!Ref Encryption, "true"]
 
   hasKmsKey:
-    !Not [!Equals [!Ref KmsKeyId, "12345678-aaaa-bbbb-cccc-123456789abc"]]
+    !Not [!Equals [!Ref KmsKeyId, "12345678-aaaa-bbbb(The One to be Replaced)-cccc-123456789abc"]]
 
   useCustomKey: !And
   - Condition: isEncrypted
