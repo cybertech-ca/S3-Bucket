@@ -1,4 +1,4 @@
-# S3 Bucket with Options for Access Control, Encryption, and Versioning
+# S3 Bucket with Access Control, Encryption, and Versioning
 
 This CloudFormation template creates a basic S3 bucket for object storage in AWS. It provides options to customize access control, encryption, and object versioning through user-defined parameters.
 
