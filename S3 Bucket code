@@ -4,24 +4,24 @@ Parameters:
 
   ACL:
     Type: String
-    Description: Would you like to apply a canned access control list to grant predefined permissions?
+    Description: Want to apply a predefined access control list to grant specific permissions?
     # S3 Canned ACLs: https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl
     AllowedValues:
-        # private - (Bucket & Object): Owner gets FULL_CONTROL. No one else has access rights. *default*
+        # private - (Bucket & Object): Owner gets FULL_CONTROL. No body else has access rights. *Default*
       - "Private"
-        # public-read - (Bucket & Object): Owner gets FULL_CONTROL.  The AllUsers group gets READ access.
+        # public-read - (Bucket & Object): Owner gets FULL_CONTROL.  The All Users-Group have READ access.
       - "PublicRead"
-        # public-read-write - (Bucket & Object): Owner gets FULL_CONTROL. The AllUsers group gets READ and WRITE access. *Not generally recommended*
+        # public-read-write - (Bucket & Object): Owner gets FULL_CONTROL. The All Users-Group have READ and WRITE access. *Not Best Practise*
       - "PublicReadWrite"
-        # aws-exec-read - (Bucket & Object): Owner gets FULL_CONTROL. Amazon EC2 gets READ access to GET an AMI bundle from Amazon S3.
+        # aws-exec-read - (Bucket & Object): Owner gets FULL_CONTROL. EC2 inst. gets READ access to GET an AMI from S3.
       - "AwsExecRead"
-        # authenitcated-read - (Bucket & Object): Owner gets FULL_CONTROL. The AuthenticatedUsers group gets READ access.
+        # authenitcated-read - (Bucket & Object): Owner gets FULL_CONTROL. The Authenticated Users-Group have READ access.
       - "AuthenticatedRead"
-        # bucket-owner-read - (Object): Object owner gets FULL_CONTROL. Bucket owner gets READ access. *If specified at time of bucket creation, Amazon S3 ignores it*
+        # bucket-owner-read - (Object): Object owner gets FULL_CONTROL. Bucket owner gets READ access. *Could be specified at time of bucket creation.*
       - "BucketOwnerRead"
-        # bucket-owner-full-control - (Object): Both object owner and bucket owner get FULL_CONTROL over objects. *If specified at time of bucket creation, Amazon S3 ignores it*
+        # bucket-owner-full-control - (Object): Both object owner and bucket owner get FULL_CONTROL over objects. *Could be specified at time of bucket creation.*
       - "BucketOwnerFullControl"
-        # log-delivery-write - (Bucket): The LogDelivery group gets WRITE and READ_ACP permissions on the bucket. *See S3 Server Access Logging for more information: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html *
+        # log-delivery-write - (Bucket): The LogDelivery group gets WRITE and READ_ACP permissions on the bucket. *See S3 Server Access Logging. Get extra info: https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html *
       - "LogDeliveryWrite"
         # none - (N/A): No canned ACL defined
       - "None"
@@ -29,29 +29,28 @@ Parameters:
 
   BucketName: 
     Type: String
-    Description: What name would you like to use for the S3 Bucket?
+    Description:S3 Bucket Name?
     # Bucket Restrictions: https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html
     AllowedPattern: "^([a-z0-9]{1}[a-z0-9-]{1,61}[a-z0-9]{1})$"
-    ConstraintDescription: "Bucket names must start and end with a letter or number, and be between 3 and 63 characters in length."
 
   Encryption:
     Type: String
-    Description: "Would you like to enable default encryption for objects stored in your bucket?"
+    Description: "Enable default encryption for objects stored in the bucket?"
     AllowedValues:
       - "true"
       - "false"
-    ConstraintDescription: "A valid boolean value is required (true/false)"
+    ConstraintDescription: "Required (true/false)"
     Default: "true"
 
   KmsKeyId:
     Type: String
-    Description: Would you like to use a custom KMS Key for encryption?  (Requires a valid KMS Key Id)
+    Description: Custom KMS Key for encryption?  (Requires a valid KMS Key Id)
     AllowedPattern: "^([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})$"
     Default: "12345678-aaaa-bbbb-cccc-123456789abc"
 
   Versioning:
     Type: String
-    Description: Would you like to enable versioning for objects in the S3 Bucket?
+    Description: Enable versioning for objects in the S3 Bucket?
     AllowedValues:
       - "Enabled"
       - "Suspended"
@@ -60,36 +59,17 @@ Parameters:
 
 Metadata:
 
-  Authors:
-    Description:  Will Nave (will@1strategy.com)
-
   Purpose:
-    Description: "This template is used to create a single S3 bucket for basic object storage. Parameters 
+    Description: "S3 bucket for basic object storage. Parameters 
                   provide the ability to use S3 canned ACLs, enable default encryption (with or without a
-                  custom KMS Key) and enable object versioning.  On successful resource creation both the 
-                  bucket url and arn will be exported and available for import in other CloudFormation 
-                  templates."
+                  custom KMS Key) and enable object versioning. 
                   
-  License:
-    Description: 'Copyright 2019 1Strategy
-
-                  Licensed under the Apache License, Version 2.0 (the "License");
-                  you may not use this file except in compliance with the License.
-                  You may obtain a copy of the License at
-
-                      http://www.apache.org/licenses/LICENSE-2.0
-
-                  Unless required by applicable law or agreed to in writing, software
-                  distributed under the License is distributed on an "AS IS" BASIS,
-                  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                  See the License for the specific language governing permissions and
-                  limitations under the License.'
   
   AWS::CloudFormation::Interface:
     ParameterGroups:
       -
         Label:
-          default: "S3 Bucket Configuration Parameters"
+          default: "S3 Config Parameters"
         Parameters:
           - BucketName
           - ACL
